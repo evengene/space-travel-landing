@@ -18,7 +18,7 @@
   <link rel="stylesheet" type="text/css" href="../assets/styles/global.css">
   <link rel="stylesheet" type="text/css" href="../assets/styles/destination.css">
 </head>
-<body class="body-container">
+<body class="body-container__destination">
 <header class="header">
   <div class="logo">
     <img src="../assets/images/icons/logo.svg" alt="logo">
@@ -26,71 +26,77 @@
   <div class="decorative-line"></div>
   <nav class="navbar">
     <ul>
-      <li><a href="../index.html" class="navbar__link"><b>00</b> Home</a></li>
-      <li><a href="index.html" class="navbar__link"><b>01</b> Destination</a></li>
-      <li><a href="../crew" class="navbar__link"><b>02</b> Crew</a></li>
-      <li><a href="../technology" class="navbar__link"><b>03</b> Technology</a></li>
+      <li><a href="../index.html" class="navbar__link active" data-link="home"><span>00</span> Home</a></li>
+      <li><a href="index.html" class="navbar__link" data-link="destination"><span>01</span> Destination</a></li>
+      <li><a href="../crew" class="navbar__link" data-link="crew"><span>02</span> Crew</a></li>
+      <li><a href="../technology" class="navbar__link" data-link="technology"><span>03</span> Technology</a></li>
     </ul>
   </nav>
+  <button class="navbar-toggler" type="button" onclick="openNav()">
+    <img class="navbar-toggler-icon" src="../assets/images/icons/icon-hamburger.svg"/>
+  </button>
 </header>
 <main>
-  <section class="container">
-    <div class="hero">
+  <section class="grid-container">
+    <div class="destinations__hero grid-item col-12 col-6-md col-12-sm">
       <h5 class="subtitle">
         <span class="subtitle__number">01</span>
         <span class="subtitle__text">Pick your destination</span>
       </h5>
-      <div class="hero__wrapper hero__top">
+      <div class="destinations__hero--wrapper hero__top">
         <div>
           <img class="planet-image" src="" alt="">
         </div>
-        <div class="destinations__about">
-          <nav class="destinations">
+        <div class="about__destinations">
+          <nav>
             <ul class="tabs">
               <li>
                 <a
                     href="#"
-                    class="tab-link active"
+                    class="tab-link"
                     data-index="0"
                     data-planet=""
                     data-image="">
                 </a>
               </li>
-              <li>
-                <a href="#" class="tab-link"
-                   data-index="1"
-                   data-planet=""
-                   data-image=""></a>
-              </li>
-              <li>
-                <a href="#" class="tab-link"
-                   data-index="2"
-                   data-planet=""
-                   data-image=""></a>
-
-              </li>
-              <li>
-                <a href="#" class="tab-link"
-                   data-index="3"
-                   data-planet=""
-                   data-image="">
-                </a>
-              </li>
             </ul>
           </nav>
           <div data-id="" class="tab-content">
-            <h1 class="title"></h1>
+            <h2 class="title"></h2>
             <p class="paragraph"></p>
-            <div class="stats"></div>
+            <hr class="divider"/>
+            <div class="stats">
+              <div class="stats__item">
+                <h5 class="stats__label">AVG. DISTANCE</h5>
+                <span class="stats__content stats__content--distance" data-planet=""></span>
+              </div>
+              <div class="stats__item">
+                <h5 class="stats__label">Est. travel time</h5>
+                <span class="stats__content stats__content--time" data-planet=""></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <div class="mobile-menu">
+    <ul class="mobile-menu__list">
+      <li class="close-nav">
+        <img src="../assets/images/icons/icon-close.svg" onclick="closeNav()"
+             alt="close icon">
+      </li>
+      <li><a href="#" class="navbar__link" data-link="home"><span>00</span> Home</a></li>
+      <li><a href="../destination" class="navbar__link" data-link="destination"><span>01</span> Destination</a></li>
+      <li><a href="../crew" class="navbar__link" data-link="crew"><span>02</span> Crew</a></li>
+      <li><a href="../technology" class="navbar__link" data-link="technology"><span>03</span> Technology</a></li>
+    </ul>
+  </div>
 </main>
 
-<!--<script src="../assets/scripts/tabSwitcher.js"></script>-->
-<script src="../assets/scripts/dataLoader.js"></script>
-
+<script type="module" src="../assets/scripts/destinationsSlider.js"></script>
+<script type="module" src="../assets/scripts/dataLoader.js"></script>
+<script src="../assets/scripts/mobileMenu.js"></script>
+<script src="../assets/scripts/activeTabsHandler.js"></script>
 </body>
 </html>

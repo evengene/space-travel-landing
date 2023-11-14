@@ -1,22 +1,47 @@
-import { handleResponse, handleData, handleError, showSelectedItem } from '../scripts/dataLoader.js';
+// import { hello } from './dataLoader';
 
+const PLANET_IMAGE = document.querySelector('.planet-image');
 const ALL_PLANET_IMAGES = document.querySelectorAll('.planet-image');
 const TAB_CONTENT = document.querySelector('.tab-content');
+const ALL_TAB_CONTENT = document.querySelectorAll('.tab-content');
 const TABS = document.querySelector('.tabs');
-const DISTANCE = document.querySelector('.stats__content--distance');
-const TRAVEL = document.querySelector('.stats__content--time');
+const DISTANCE =  document.querySelector('.stats__content--distance');
+const TRAVEL =  document.querySelector('.stats__content--time');
 
 let planetData;
-document.addEventListener('DOMContentLoaded', () => {
+
+export const handleData = (data, category, populateContent) => {
+  if (!category) return;
+  data[category].forEach((item, index) =>
+    populateContent(item, index));
+}
+
+export const fetchData = () => {
   fetch('../../data.json')
     .then(handleResponse)
-    .then((data) => {
-      handleData(data, 'destinations', populateContent);
-      planetData = data;
-    })
+    .then(handleData)
     .catch(handleError);
+}
+
+export const handleResponse = (response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response.json();
+}
+
+
+
+const handleError = (error) => {
+  console.error(`Fetch error: ${error.message}`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchData();
   TABS.addEventListener('click', onTabClickHandler);
+  handleData('../../data.json', 'destinations', populateContent);
 });
+
 
 function openTab(planet, image) {
   if (!planet || !image) {
@@ -24,8 +49,8 @@ function openTab(planet, image) {
   }
   updateTabImage(image)
   updateTabContent(planet)
-  setActiveTab(planet)
-  updateStatsContent(planet)
+  handleTabLink(planet)
+  updateStats(planet)
 }
 
 const updateTabImage = (image) => {
@@ -45,7 +70,7 @@ const updateTabContent = (currentPlanet) => {
   });
 }
 
-const updateStatsContent = (selectedPlanet) => {
+const updateStats = (selectedPlanet) => {
   const currentPlanet = DISTANCE.getAttribute('data-planet');
   if (currentPlanet === selectedPlanet) {
     DISTANCE.textContent = planetData[currentPlanet].distance;
@@ -53,7 +78,7 @@ const updateStatsContent = (selectedPlanet) => {
   }
 }
 
-const setActiveTab = (selectedPlanet) => {
+const handleTabLink = (selectedPlanet) => {
   const tabLinks = document.querySelectorAll('.tab-link');
   tabLinks.forEach((tab) => {
     const currentPlanet = tab.getAttribute('data-planet');
@@ -65,40 +90,48 @@ const setActiveTab = (selectedPlanet) => {
 
 }
 
+const showContent = (index) => {
+  const content = document.querySelectorAll(`.tab-content`);
+  content.forEach((content) => {
+    content.style.display = 'none';
+  });
+  content[index].style.display = 'block';
+}
+
+const showImage = (index) => {
+  ALL_PLANET_IMAGES.forEach((image) => {
+    image.style.display = 'none';
+  });
+  ALL_PLANET_IMAGES[index].style.display = 'block';
+}
+
 const populateContent = (destination, index) => {
-  const PLANET_IMAGE = document.querySelector('.planet-image');
+  // 1. Set tab image
   if (index === 0) {
-    // 1. Set tab image
     PLANET_IMAGE.src = destination.images.png;
     PLANET_IMAGE.alt = `Image of ${destination.name}`;
-    // 2. Set tab links
-    const TAB_LINK = document.querySelector('.tab-link');
-    TAB_LINK.setAttribute('data-planet', destination.name);
-    TAB_LINK.setAttribute('data-image', destination.images.png);
-    TAB_LINK.setAttribute('data-index', index);
-    TAB_LINK.textContent = destination.name;
-    TAB_LINK.classList.add('active');
-    // 3. Set stats content
-    const DISTANCE = document.querySelector('.stats__content--distance');
-    const TRAVEL = document.querySelector('.stats__content--time');
-    DISTANCE.setAttribute('data-planet', destination.name);
-    TRAVEL.setAttribute('data-planet', destination.name);
-    DISTANCE.textContent = destination.distance;
-    TRAVEL.textContent = destination.travel;
-    // 4. Update the tabs content
-    TAB_CONTENT.setAttribute('id', destination.name);
-    TAB_CONTENT.querySelector('.title').textContent = destination.name;
-    TAB_CONTENT.querySelector('.paragraph').textContent = destination.description;
-    TAB_CONTENT.style.display = 'block';
-    showSelectedItem(ALL_PLANET_IMAGES, 0);
   } else {
-    // 1. Set tab image for other slides
     const clonedImage = PLANET_IMAGE.cloneNode(true);
     clonedImage.src = destination.images.png;
     clonedImage.alt = `Image of ${destination.name}`;
     clonedImage.style.display = 'none';
     PLANET_IMAGE.parentNode.appendChild(clonedImage);
-     // 2. Set tab links for other slides
+    showImage(0)
+  }
+  // 2. Set tab links
+  // const tabLink = document.querySelector(`.tab-link[data-index="${index}"]`);
+  const tabLink = document.querySelector('.tab-link');
+  if (!tabLink) {
+    return;
+  }
+  if (index === 0) {
+    tabLink.setAttribute('data-planet', destination.name);
+    tabLink.setAttribute('data-image', destination.images.png);
+    tabLink.setAttribute('data-index', index);
+    tabLink.textContent = destination.name;
+    tabLink.classList.add('active');
+  }
+  else {
     const listItem = document.querySelector('.tabs li');
     const clonedListItem = listItem.cloneNode(true);
     const linkFromListItem = clonedListItem.querySelector('.tab-link');
@@ -110,14 +143,31 @@ const populateContent = (destination, index) => {
       linkFromListItem.classList.remove('active');
     }
     listItem.parentNode.appendChild(clonedListItem);
-    // 3. Set stats content for other slides
+  }
+  // 3. Set stats content
+  const DISTANCE =  document.querySelector('.stats__content--distance');
+  const TRAVEL =  document.querySelector('.stats__content--time');
+  if (index === 0) {
+    DISTANCE.setAttribute('data-planet', destination.name);
+    TRAVEL.setAttribute('data-planet', destination.name);
+    DISTANCE.textContent = destination.distance;
+    TRAVEL.textContent = destination.travel;
+  }
+  else {
     let distance = document.querySelector('.stats__content--distance');
-    const query = document.querySelector('.stats__content--time');
+    const query =  document.querySelector('.stats__content--time');
     distance.setAttribute('data-planet', destination.name);
     query.setAttribute('data-planet', destination.name);
     distance.textContent = destination.distance;
     query.textContent = destination.travel;
-    // 4. Update the tabs content for other slides
+  }
+  // 4. Update the tabs content
+  if (index === 0) {
+    TAB_CONTENT.setAttribute('id', destination.name);
+    TAB_CONTENT.querySelector('.title').textContent = destination.name;
+    TAB_CONTENT.querySelector('.paragraph').textContent = destination.description;
+    TAB_CONTENT.style.display = 'block';
+  } else {
     const tabContentClone = TAB_CONTENT.cloneNode(true);
     tabContentClone.setAttribute('id', destination.name);
     tabContentClone.querySelector('.title').textContent = destination.name;
@@ -138,7 +188,6 @@ const onTabClickHandler = (event) => {
     openTab(planet, image);
   }
   if (index) {
-    const allTabContent = document.querySelectorAll(`.tab-content`);
-    showSelectedItem(allTabContent, index);
+    showContent(index);
   }
 }
