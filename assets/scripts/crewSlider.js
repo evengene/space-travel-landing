@@ -56,7 +56,7 @@ const populateContent = (crew, index) => {
   const CREW_IMAGE = document.querySelector('.crew-image');
   if (index === 0) {
     // 1. Set tab image for first slide
-    CREW_IMAGE.src = crew.images.png;
+    CREW_IMAGE.src = crew.images.webp || crew.images.png;
     CREW_IMAGE.alt = `Image of ${crew.name}`;
     // 2. Set dot attributes for first slide
     const DOT = document.querySelector('.dot');
@@ -76,7 +76,7 @@ const populateContent = (crew, index) => {
   } else {
     // 1. Set tab image for other slides
     const clonedImage = CREW_IMAGE.cloneNode(true);
-    clonedImage.src = crew.images.png;
+    clonedImage.src = crew.images.webp || crew.images.png;
     clonedImage.alt = `Image of ${crew.name}`;
     clonedImage.style.display = 'none';
     CREW_IMAGE.parentNode.appendChild(clonedImage);

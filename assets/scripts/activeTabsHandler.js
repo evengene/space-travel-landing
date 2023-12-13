@@ -8,12 +8,9 @@ const addActiveClass = (e) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  debugger;
   const pathName = window.location.pathname;
   NAV_BAR_LINKS.forEach((link) => {
     const dataLink = link.getAttribute('data-link');
-    // const defaultTab = dataLink === "home"
-    //     const defaultTab = dataLink === "home" && pathName.includes("index")
     link.addEventListener('click', addActiveClass);
 
     if (pathName?.includes(dataLink)) {
