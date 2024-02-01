@@ -351,7 +351,7 @@ img {
 }
 
 .destinations__hero {
-  padding-top: 15px;
+  padding-top: 120px;
   flex-direction: column;
   align-items: flex-start;
   display: flex;
@@ -381,28 +381,37 @@ img {
   z-index: -1;
 }
 
+
 .body-container__destination {
-  background-image: url('../images/destination/background-destination-desktop.jpg');
-  background-repeat: no-repeat;
+  background: url('../images/destination/background-destination-desktop.jpg') no-repeat center center;
   background-size: cover;
 }
 
-.body-container__crew {
+.body-container__crew,
+.body-container__technology {
   position: relative;
 }
-
 .body-container__crew::before {
-  background-repeat: no-repeat;
   background-size: cover;
-  background: url('../images/crew/background-crew-desktop.jpg');
+  background: url('../images/crew/background-crew-desktop.jpg') no-repeat center center;
+  opacity: 0.8;
+}
+
+.body-container__crew::before,
+.body-container__technology::before {
   bottom: 0;
   content: "";
   left: 0;
-  opacity: 0.5;
   position: absolute;
   right: 0;
   top: 0;
   z-index: -1;
+}
+
+.body-container__technology::before {
+  background: url('../images/technology/background-technology-desktop.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.7;
 }
 
 .destinations__hero--wrapper {
