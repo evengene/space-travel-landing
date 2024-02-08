@@ -1,0 +1,99 @@
+.circles {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.circle {
+  font-size: 14px;
+  line-height: 19px;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  .circle-link {
+    content: '';
+    font-family: "Bellefair", sans-serif;
+    background: transparent;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    padding: 24px;
+    z-index: 2;
+    position: relative;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    &::before {
+      counter-increment: number;
+      content: counter(number) " ";
+      font-size: 32px;
+      line-height: 1px;
+    }
+  }
+  .item-text {
+    display: inline-block;
+    max-width: 70%;
+    vertical-align: middle;
+    margin-left: 17px;
+  }
+}
+
+.circle:hover {
+  .circle-link {
+    background: #FFFFFF;
+    color: #000000;
+  }
+}
+.circle-link.active {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+.technology__hero {
+  position: relative;
+}
+
+.technology__hero-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+}
+
+.technology__destinations--crew {
+  width: 100%;
+  max-width: 470px;
+}
+
+.technology__hero-image {
+  position: absolute;
+  /* top: -120px; */
+  right: -166px;
+  /* right: 0; */
+/*   position center vertically */
+/*   top: 50%; */
+/*   transform: translateY(-50%); */
+  /* width: 100%; */
+  /* max-width: 100%; */
+  height: auto;
+  z-index: 1;
+}
+
+.technology__crew {
+  margin-bottom: 118px;
+}
+
+.technology__subtitle {
+font-size: 16px;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.1em;
+  margin-bottom: 11px;
+}
+
+.technology__destinations--crew .title {
+  margin-bottom: 17px;
+}

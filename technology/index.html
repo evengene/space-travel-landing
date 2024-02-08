@@ -16,6 +16,8 @@
   <meta property="og:image" content="">
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="../assets/styles/global.css">
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  
 </head>
 <body class="body-container__technology">
 <header class="header">
@@ -38,7 +40,7 @@
           <span>02</span> Crew </a>
       </li>
       <li>
-        <a href="../technology/technology-capsule.html" class="navbar__link" data-link="technology">
+        <a href="../technology" class="navbar__link" data-link="technology">
           <span>03</span> Technology </a>
       </li>
     </ul>
@@ -49,31 +51,54 @@
 </header>
 <main>
   <section class="grid-container">
-    <div class="destinations__hero crew-hero grid-item col-12 col-6-md col-12-sm">
-      <h5 class="subtitle subtitle__crew">
-        <span class="subtitle__number">02</span>
-        <span class="subtitle__text">Meet your crew</span>
+    <div class="destinations__hero col-12 col-6-md col-12-sm technology__hero">
+      <h5 class="technology__crew">
+        <span class="subtitle__number">03</span>
+        <span class="subtitle__text">SPACE LAUNCH 101</span>
       </h5>
-      <div class="destinations__hero--wrapper crew-wrapper hero__top">
-        <div>
-          <img class="crew-image" src="" alt="">
-        </div>
-        <div class="about__destinations--crew">
-          <div>
-            <div class="slide-content">
-              <h4 class="role"></h4>
-              <h3 class="title"></h3>
-              <p class="paragraph"></p>
-            </div>
-          </div>
-          <nav class="slider-navigation slider-crew">
-            <ul class="dots">
-              <li>
-                <a class="dot active" data-index="0" data-slide="" data-image="" href="#"></a>
+      <div class="technology__hero-wrapper hero__top">
+        <nav class="slider-navigation">
+            <ul class="circles">
+              <li class="circle">
+                <a class="circle-link" data-image="" href="#"></a>
+              </li>
+               <li class="circle">
+                <a class="circle-link" data-image="" href="#"></a>
+              </li>
+               <li class="circle">
+                <a class="circle-link" data-image="" href="#"></a>
+              </li>
             </ul>
           </nav>
+        <div class="technology__destinations--crew">
+            <div class="slide-content">
+               <p class="technology__subtitle">THE TERMINOLOGY…</p>
+               <h3 class="title">LAUNCH VEHICLE</h3>
+               <p class="paragraph">
+               A launch vehicle or carrier rocket is a rocket-propelled vehicle used to carry a payload from Earth's surface to space, usually to Earth orbit or beyond. Our WEB-X carrier rocket is the most powerful in operation. Standing 150 metres tall, it's quite an awe-inspiring sight on the launch pad!
+               </p>
+            </div>
+                 <div class="slide-content">
+              <p></p>
+               <h3 class="title"></h3>
+               <p class="paragraph">
+               </p>
+            </div>
+           <div class="slide-content">
+              <p class="technology__subtitle"></p>
+               <h3 class="title"></h3>
+               <p class="paragraph">
+               </p>
+            </div>
         </div>
       </div>
+      <!--          <div class="technology-images">-->
+          <img
+            class="technology__hero-image"
+            src="../assets/images/technology/image-launch-vehicle-portrait.jpg"
+            alt="technology__hero-image"
+          >
+      <!--        </div>-->
     </div>
   </section>
   <div class="mobile-menu">
@@ -94,13 +119,13 @@
           <span>02</span> Crew </a>
       </li>
       <li>
-        <a href="../technology/technology-capsule.html" class="navbar__link" data-link="technology">
+        <a href="../technology" class="navbar__link" data-link="technology">
           <span>03</span> Technology </a>
       </li>
     </ul>
   </div>
 </main>
-<script type="module" src="../assets/scripts/crewSlider.js"></script>
+<!--<script type="module" src="../assets/scripts/crewSlider.js"></script>-->
 <script type="module" src="../assets/scripts/dataLoader.js"></script>
 <script src="../assets/scripts/mobileMenu.js"></script>
 <script src="../assets/scripts/activeTabsHandler.js"></script>

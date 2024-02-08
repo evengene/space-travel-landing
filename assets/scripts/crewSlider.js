@@ -4,23 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch('../../data.json')
     .then(handleResponse)
     .then((data) => {
-      handleData(data, 'crew', populateContent);
-      const dots = document.querySelectorAll('.dot');
-      dots.forEach((dot) => {
-        dot.addEventListener('click', onDotClickHandler);
-      });
+      const dotsContainer = document.querySelector('.dots');
+      handleData(data, 'crew', (crew, index) => populateContent(crew, index, dotsContainer));
+      dotsContainer.addEventListener('click', onDotClickHandler);
     })
     .catch(handleError);
-
 });
 
-function onNextSlideClick(dataSlide, dataImage) {
-  if (!dataSlide || !dataImage) {
+function onNextSlideClick(currentCrewMember, dataImage) {
+  if (!currentCrewMember || !dataImage) {
     return;
   }
   updateCrewImage(dataImage)
-  updateTabContent(dataSlide)
-  setActiveDot(dataSlide)
+  updateTabContent(currentCrewMember)
+  setActiveDot(currentCrewMember)
 }
 
 const updateCrewImage = (dataImage) => {
@@ -32,87 +29,70 @@ const updateCrewImage = (dataImage) => {
   });
 }
 
-const updateTabContent = (dataSlide) => {
+const updateTabContent = (currentCrewMember) => {
   const tabContent = document.querySelectorAll('.slide-content');
   tabContent.forEach((item) => {
     const selectedSlide = item.id;
-    item.style.display = (selectedSlide !== dataSlide) ? 'none' : 'block';
+    item.style.display = (selectedSlide !== currentCrewMember) ? 'none' : 'block';
   });
 }
 
-const setActiveDot = (selectedPlanet) => {
+const setActiveDot = (selectedCrewMember) => {
   const dots = document.querySelectorAll('.dot');
   dots.forEach((tab) => {
-    const dataSlide = tab.getAttribute('data-slide');
+    const currentCrewMember = tab.getAttribute('data-slide');
     tab.classList.remove('active');
-    if (dataSlide === selectedPlanet) {
+    if (currentCrewMember === selectedCrewMember) {
       tab.classList.add('active');
     }
   });
 
 }
 
-const populateContent = (crew, index) => {
-  const CREW_IMAGE = document.querySelector('.crew-image');
-  if (index === 0) {
-    // 1. Set tab image for first slide
-    CREW_IMAGE.src = crew.images.webp || crew.images.png;
-    CREW_IMAGE.alt = `Image of ${crew.name}`;
-    // 2. Set dot attributes for first slide
-    const DOT = document.querySelector('.dot');
-    DOT.setAttribute('data-slide', crew.name);
-    DOT.setAttribute('data-image', crew.images.png);
-    DOT.setAttribute('data-index', index);
-    DOT.classList.add('active');
-    // 3. Set slide content for first slide
-    const SLIDE_CONTENT = document.querySelector('.slide-content');
-    SLIDE_CONTENT.setAttribute('id', crew.name);
-    SLIDE_CONTENT.querySelector('.title').textContent = crew.name;
-    SLIDE_CONTENT.querySelector('.role').textContent = crew.role;
-    SLIDE_CONTENT.querySelector('.paragraph').textContent = crew.bio;
-    SLIDE_CONTENT.style.display = 'block';
-    const ALL_CREW_IMAGES = document.querySelectorAll('.crew-image');
-    showSelectedItem(ALL_CREW_IMAGES, 0);
-  } else {
-    // 1. Set tab image for other slides
-    const clonedImage = CREW_IMAGE.cloneNode(true);
-    clonedImage.src = crew.images.webp || crew.images.png;
-    clonedImage.alt = `Image of ${crew.name}`;
-    clonedImage.style.display = 'none';
-    CREW_IMAGE.parentNode.appendChild(clonedImage);
-    // 2. Set tab links for other slides
-    const listItem = document.querySelector('.dots li');
-    const clonedListItem = listItem.cloneNode(true);
-    const linkFromListItem = clonedListItem.querySelector('.dot');
-    linkFromListItem.setAttribute('data-slide', crew.name);
-    linkFromListItem.setAttribute('data-image', crew.images.png);
-    linkFromListItem.setAttribute('data-index', index);
-    if (index !== 0) {
-      linkFromListItem.classList.remove('active');
-    }
-    listItem.parentNode.appendChild(clonedListItem);
-    // 3. Set slide content for other slides
-    const SLIDE_CONTENT = document.querySelector('.slide-content');
-    const tabContentClone = SLIDE_CONTENT.cloneNode(true);
-    tabContentClone.setAttribute('id', crew.name);
-    tabContentClone.querySelector('.title').textContent = crew.name;
-    tabContentClone.querySelector('.role').textContent = crew.role;
-    tabContentClone.querySelector('.paragraph').textContent = crew.bio;
-    tabContentClone.style.display = 'none';
-    SLIDE_CONTENT.parentNode.appendChild(tabContentClone);
-  }
+function populateContent(crew, index, dotsContainer) {
+  console.log('populateContent called with index:', index, 'and crew:', crew);
+
+  const crewImages = document.querySelectorAll('.crew-image');
+  const slideContents = document.querySelectorAll('.slide-content');
+
+  console.log('crewImages length:', crewImages.length);
+  console.log('slideContents length:', slideContents.length);
+
+  const crewImage = crewImages[index];
+  crewImage.src = crew.images.webp || crew.images.png;
+  crewImage.alt = `Image of ${crew.name}`;
+  crewImage.style.display = index === 0 ? 'block' : 'none';
+
+  const dotElement = document.createElement('li');
+  dotElement.innerHTML = `
+    <a href="#" data-slide="${crew.name}" data-image="${crew.images.png}" data-index="${index}" class="dot ${index === 0 ? 'active' : ''}"></a>
+  `;
+  dotsContainer.appendChild(dotElement);
+
+  const slideContent = slideContents[index];
+  slideContent.innerHTML = `
+    <h4 class="role">${crew.role}</h4>
+    <h2 class="title">${crew.name}</h2>
+    <p class="paragraph">${crew.bio}</p>
+  `;
+  slideContent.style.display = index === 0 ? 'block' : 'none';
 }
 
 const onDotClickHandler = (event) => {
   event.preventDefault();
-  const dataSlide = event.target.getAttribute('data-slide');
-  const dataImage = event.target.getAttribute('data-image');
-  const dataIndex = event.target.getAttribute('data-index');
-  if (dataSlide && dataImage) {
-    onNextSlideClick(dataSlide, dataImage);
-  }
-  if (dataIndex) {
-    const allTabContent = document.querySelectorAll(`.slide-content`);
-    showSelectedItem(allTabContent, dataIndex);
+  const target = event.target;
+  if (target.classList.contains('dot')) {
+    const currentCrewMember = target.getAttribute('data-slide');
+    const dataImage = target.getAttribute('data-image');
+    const dataIndex = target.getAttribute('data-index');
+    if (currentCrewMember && dataImage) {
+      onNextSlideClick(currentCrewMember, dataImage);
+      const crewImages = document.querySelectorAll('.crew-image');
+      showSelectedItem(crewImages, dataIndex);
+    }
+    if (dataIndex) {
+      const allTabContent = document.querySelectorAll(`.slide-content`);
+      showSelectedItem(allTabContent, dataIndex);
+    }
   }
 }

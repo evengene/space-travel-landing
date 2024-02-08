@@ -6,7 +6,9 @@ export const handleResponse = (response) => {
 }
 
 export const handleData = (data, category, populateContent) => {
+  console.log('handleData called with data:', data, 'and category:', category);
   if (!data) return;
+  console.log('data[category] length:', data[category].length);
   data[category].forEach((destination, index) =>
     populateContent(destination, index));
 }
