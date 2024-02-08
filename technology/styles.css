@@ -1,3 +1,6 @@
+.overwrite-main {
+  display: block;
+}
 .circles {
   display: flex;
   flex-direction: column;
@@ -53,9 +56,21 @@
 }
 
 .technology__hero {
+  /* position: relative; */
+  /* padding-top: 120px; */
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
 }
-
 .technology__hero-wrapper {
   display: flex;
   flex-direction: row;
@@ -70,9 +85,9 @@
 }
 
 .technology__hero-image {
-  position: absolute;
+  /* position: absolute; */
   /* top: -120px; */
-  right: -166px;
+  /* right: 0; */
   /* right: 0; */
 /*   position center vertically */
 /*   top: 50%; */
@@ -97,3 +112,12 @@ font-size: 16px;
 .technology__destinations--crew .title {
   margin-bottom: 17px;
 }
+
+@media screen and (max-width: 1200px) {
+  .technology__hero-image {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 900px) {}
+
+@media screen and (max-width: 600px) {}
