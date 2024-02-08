@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description"
-        content="Space travel for everyone. That’s been the goal of human race since the beginning of time, and now Space Travel is finally a reality.">
+  <meta
+    name="description"
+    content="Space travel for everyone. That’s been the goal of human race since the beginning of time, and now Space Travel is finally a reality."
+  >
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--Project Title-->
   <title>Crew</title>
@@ -16,6 +18,7 @@
   <meta property="og:image" content="">
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="../assets/styles/global.css">
+  <link rel="stylesheet" type="text/css" href="./crew.css">
 </head>
 <body class="body-container__crew">
 <header class="header">
@@ -38,43 +41,60 @@
           <span>02</span> Crew </a>
       </li>
       <li>
-        <a href="../technology/technology-capsule.html" class="navbar__link" data-link="technology">
+        <a href="../technology" class="navbar__link" data-link="technology">
           <span>03</span> Technology </a>
       </li>
     </ul>
   </nav>
-  <button class="navbar-toggler" type="button" onclick="openNav()">
-    <img class="navbar-toggler-icon" src="../assets/images/icons/icon-hamburger.svg" alt="hamburger icon"/>
+  <button class="navbar-toggle" type="button" onclick="openNav()">
+    <img class="navbar-toggle-icon" src="../assets/images/icons/icon-hamburger.svg" alt="menu icon" />
   </button>
 </header>
-<main>
-  <section class="grid-container">
-    <div class="destinations__hero crew-hero grid-item col-12 col-6-md col-12-sm">
-      <h5 class="subtitle subtitle__crew">
-        <span class="subtitle__number">02</span>
-        <span class="subtitle__text">Meet your crew</span>
-      </h5>
-      <div class="destinations__hero--wrapper crew-wrapper hero__top">
-        <div>
-          <img class="crew-image" src="" alt="">
+<main class="overwrite-main crew__main">
+  <section class="title crew__title">
+    <h5>
+      <span class="title__number">02</span>
+      <span class="title__text">Meet your crew</span>
+    </h5>
+  </section>
+  <section class="crew__container">
+    <div class="crew__wrapper">
+      <div>
+        <div class="slide-content">
+          <h4 class="role"></h4>
+          <h3 class="crew__slider-title"></h3>
+          <p class="paragraph"></p>
         </div>
-        <div class="about__destinations--crew">
-          <div>
-            <div class="slide-content">
-              <h4 class="role"></h4>
-              <h3 class="title"></h3>
-              <p class="paragraph"></p>
-            </div>
-          </div>
-          <nav class="slider-navigation slider-crew">
-            <ul class="dots">
-              <li>
-                <a class="dot active" data-index="0" data-slide="" data-image="" href="#"></a>
-            </ul>
-          </nav>
+        <div class="slide-content">
+          <h4 class="role"></h4>
+          <h3 class="crew__slider-title"></h3>
+          <p class="paragraph"></p>
+        </div>
+        <div class="slide-content">
+          <h4 class="role"></h4>
+          <h3 class="crew__slider-title"></h3>
+          <p class="paragraph"></p>
+        </div>
+        <div class="slide-content">
+          <h4 class="role"></h4>
+          <h3 class="crew__slider-title"></h3>
+          <p class="paragraph"></p>
         </div>
       </div>
+      <nav class="slider-navigation slider-crew">
+        <ul class="dots">
+        </ul>
+      </nav>
     </div>
+
+    <hr class="line" />
+
+
+    <img class="crew__slider-image" alt="crew" src="../assets/technology/image-launch-vehicle-landscape.jpg" />
+    <img class="crew__slider-image" alt="crew" src="" />
+    <img class="crew__slider-image" alt="crew" src="" />
+    <img class="crew__slider-image" alt="crew" src="" />
+
   </section>
   <div class="mobile-menu">
     <ul class="mobile-menu__list">
@@ -94,7 +114,7 @@
           <span>02</span> Crew </a>
       </li>
       <li>
-        <a href="../technology/technology-capsule.html" class="navbar__link" data-link="technology">
+        <a href="../technology" class="navbar__link" data-link="technology">
           <span>03</span> Technology </a>
       </li>
     </ul>

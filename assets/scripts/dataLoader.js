@@ -6,7 +6,9 @@ export const handleResponse = (response) => {
 }
 
 export const handleData = (data, category, populateContent) => {
+  console.log('handleData called with data:', data, 'and category:', category);
   if (!data) return;
+  console.log('data[category] length:', data[category].length);
   data[category].forEach((destination, index) =>
     populateContent(destination, index));
 }
@@ -18,6 +20,8 @@ export const handleError = (error) => {
 export const showSelectedItem = (list, index) => {
   list.forEach((item) => {
     item.style.display = 'none';
+    item.classList.remove('active');
   });
   list[index].style.display = 'block';
+  list[index].classList.add('active');
 }
