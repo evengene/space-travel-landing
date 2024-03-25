@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const circlesContainer = document.querySelector('.circles');
       handleData(data, 'technology', (technology, index) => populateContent(technology, index, circlesContainer));
       circlesContainer.addEventListener('click', onCircleClickHandler);
+      const techImages = document.querySelectorAll('.technology__slider-image');
+      showSelectedItem(techImages, 0);
+      const slideContents = document.querySelectorAll('.slide-content');
+      showSelectedItem(slideContents, 0);
     })
     .catch(handleError);
 });
@@ -26,9 +30,9 @@ function populateContent(technology, index, circlesContainer) {
 
   const slideContent = slideContents[index];
   slideContent.innerHTML = `
-    <p class="technology__slider-subtitle">The terminology…</p>
-    <h3 class="technology__slider-title">${technology.name}</h3>
-    <p class="paragraph">${technology.description}</p>
+    <p class="technology__slider-subtitle animate__animated animate__fadeIn">The terminology…</p>
+    <h3 class="technology__slider-title animate__animated animate__fadeIn">${technology.name}</h3>
+    <p class="paragraph technology__slider-paragraph animate__animated animate__fadeIn">${technology.description}</p>
   `;
   slideContent.style.display = index === 0 ? 'block' : 'none';
 
