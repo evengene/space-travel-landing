@@ -71,9 +71,9 @@ function populateContent(crew, index, dotsContainer) {
 
   const slideContent = slideContents[index];
   slideContent.innerHTML = `
-    <h4 class="role">${crew.role}</h4>
-    <h3 class="crew__slider-title">${crew.name}</h3>
-    <p class="paragraph">${crew.bio}</p>
+    <h4 class="role animate__animated animate__fadeIn">${crew.role}</h4>
+    <h3 class="crew__slider-title animate__animated animate__fadeIn">${crew.name}</h3>
+    <p class="paragraph technology__slider-paragraph animate__animated animate__fadeIn">${crew.bio}</p>
   `;
   slideContent.style.display = index === 0 ? 'block' : 'none';
 }
